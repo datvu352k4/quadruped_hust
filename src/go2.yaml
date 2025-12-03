@@ -1,0 +1,167 @@
+scene:
+  n_envs: 1 
+  sim:
+    dt: 0.02
+    substeps: 1
+    substeps_local: null
+    gravity: [0.0, 0.0, -9.81]
+    floor_height: 0.0
+    requires_grad: false
+
+  show_Viewer: true
+
+  profiling_options:
+    show_FPS: true
+    FPS_tracker_alpha: 0.9
+
+  viewer_config:
+    res: [1280, 720]
+    run_in_thread: false
+    refresh_rate: 60
+    max_FPS: 60
+    camera_pos: [3.5, 0.5, 2.5]
+    camera_lookat: [0.0, 0.0, 0.5]
+    camera_up: [0.0, 0.0, 1.0]
+    camera_fov: 40
+    enable_interaction: false
+
+  vis_config:
+    show_world_frame: false
+    world_frame_size: 1.0
+    show_link_frame: false
+    link_frame_size: 0.2
+    show_cameras: false
+    shadow: false
+    plane_reflection: false
+    env_separate_rigid: false
+    background_color: [0.04, 0.08, 0.12]
+    ambient_light: [0.1, 0.1, 0.1]
+    visualize_mpm_boundary: false
+    visualize_sph_boundary: false
+    visualize_pbd_boundary: false
+    segmentation_level: "link"
+    render_particle_as: "sphere"
+    particle_size_scale: 1.0
+    contact_force_scale: 0.01
+    n_support_neighbors: 12
+    n_rendered_envs: null
+    rendered_envs_idx: null
+    lights:
+      - type: directional
+        dir: [-1, -1, -1]
+        color: [1.0, 1.0, 1.0]
+        intensity: 5.0
+
+  rigid_config:
+    dt: null
+    gravity: null
+    enable_collision: true
+    enable_joint_limit: true
+    enable_self_collision: false
+    enable_adjacent_collision: false
+    disable_constraint: false
+    max_collision_pairs: 300
+    integrator: 1
+    IK_max_targets: 6
+    batch_links_info: false
+    batch_joints_info: false
+    batch_dofs_info: false
+    constraint_solver: 1
+    iterations: 50
+    tolerance: 1e-8
+    ls_iterations: 50
+    ls_tolerance: 0.01
+    sparse_solve: false
+    contact_resolve_time: null
+    use_contact_island: false
+    box_box_detection: false
+    use_hibernation: false
+    hibernation_thresh_vel: 0.001
+    hibernation_thresh_acc: 0.01
+    max_dynamic_constraints: 8
+    enable_multi_contact: true
+    enable_mujoco_compatibility: false
+    use_gjk_collision: false
+
+world:
+  plane: true
+
+robots:
+  go2:
+    namespace: "go2"
+    control_topic: trajectory_command 
+    joint_state_target_topic: joint_state_target
+    joint_state_target_topic_frequency: 50
+    
+    morph:
+      path: "/home/datvu/go2/urdf/go2.urdf" 
+      pos: [0.0, 0.0, 0.05] 
+      euler: [0.0, 0.0, 0.0]
+      fixed: false
+    
+    joint_properties:
+      FL_hip_joint: {kp: 20.0, kv: 0.5, command: position}
+      FL_thigh_joint: {kp: 20.0, kv: 0.5, command: position}
+      FL_calf_joint: {kp: 20.0, kv: 0.5, command: position}
+      FR_hip_joint: {kp: 20.0, kv: 0.5, command: position}
+      FR_thigh_joint: {kp: 20.0, kv: 0.5, command: position}
+      FR_calf_joint: {kp: 20.0, kv: 0.5, command: position}
+      RL_hip_joint: {kp: 20.0, kv: 0.5, command: position}
+      RL_thigh_joint: {kp: 20.0, kv: 0.5, command: position}
+      RL_calf_joint: {kp: 20.0, kv: 0.5, command: position}
+      RR_hip_joint: {kp: 20.0, kv: 0.5, command: position}
+      RR_thigh_joint: {kp: 20.0, kv: 0.5, command: position}
+      RR_calf_joint: {kp: 20.0, kv: 0.5, command: position}
+
+    sensors:
+      - name: imu_1
+        link: base
+        sensor_type: imu
+        frame_id: base
+        topic: imu_topic
+        frequency: 50.0
+        pos_offset: [0.0, 0.0, 0.1]
+        euler_offset: [0.0, 0.0, 0.0]
+        draw_debug: true
+        acc_resolution: 0.0001
+        acc_axes_skew: [0.01, 0.01, 0.01]
+        acc_bias: [0.01, -0.02, 0.005]
+        acc_noise: [0.001, 0.001, 0.001]
+        acc_random_walk: [0.0001, 0.0001, 0.0001]
+
+        gyro_resolution: 0.0001
+        gyro_axes_skew: 0.02
+        gyro_bias: [0.001, 0.001, -0.001]
+        gyro_noise: [0.0005, 0.0005, 0.0005]
+        gyro_random_walk: [0.00005, 0.00005, 0.00005]
+
+        debug_acc_color: [0.0, 1.0, 1.0, 0.5]
+        debug_acc_scale: 0.01
+        debug_gyro_color: [1.0, 1.0, 0.0, 0.5]
+        debug_gyro_scale: 0.01
+        QOS_history: KEEP_LAST
+        QOS_depth: 10
+        QOS_reliability: RELIABLE
+        QOS_durability: VOLATILE
+        
+      - name: laser_scan_1
+        sensor_type: laser_scan
+        link: base
+        frame_id: base
+        topic: laser_scan_topic_raw
+        frequency: 50
+        near: 0.3
+        far: 3.0
+        pos_offset: [0.0, 0.0, 0.1]
+        euler_offset: [0.0, 0.0, 0.0]
+        fov: [360.0, 1.0]
+        resolution: 720
+        draw_points: true
+        return_points_in_world_frame: false
+        add_noise: false
+        noise_mean: 0.0
+        noise_std: 0.0
+        QOS_history: KEEP_LAST
+        QOS_depth: 10
+        QOS_reliability: RELIABLE
+        QOS_durability: VOLATILE
