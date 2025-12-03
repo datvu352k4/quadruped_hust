@@ -61,19 +61,19 @@ ros-humble-xacro
 
 Clone this repository into your ROS2 workspace (e.g., ~/ros2_ws) and build the project.
 
-# Navigate to your workspace src folder
+### Navigate to your workspace src folder
 ```
 cd ~/ros2_ws/src
 ```
-# Clone the repository 
+### Clone the repository 
 
-# Install dependencies using rosdep
+### Install dependencies using rosdep
 ```
 cd ~/ros2_ws
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-# Build the workspace
+### Build the workspace
 ```
 colcon build
 ```
@@ -134,6 +134,7 @@ ros2 launch quadruped_bringup go2_nav2.launch.py map:='/home/user/map_name.yaml'
 This project is built upon and inspired by the following repository:
 
 https://github.com/vybhav-ibr/genesis_ros
+
 
 
 
