@@ -48,7 +48,6 @@ https://github.com/Genesis-Embodied-AI/Genesis?tab=readme-ov-file
 Install the necessary ROS2 packages for Navigation, SLAM, and Joystick control.
 Bash
 ```
-
 sudo apt update
 sudo apt install ros-humble-navigation2 \
 ros-humble-nav2-bringup \
@@ -135,5 +134,6 @@ ros2 launch quadruped_bringup go2_nav2.launch.py map:='/home/user/map_name.yaml'
 This project is built upon and inspired by the following repository:
 
 https://github.com/vybhav-ibr/genesis_ros
+
 
 
