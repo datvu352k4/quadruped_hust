@@ -1,4 +1,4 @@
- QUADRUPED_HUST: RL & ROS 2 Integration for Go2
+🐕 QUADRUPED_HUST: RL & ROS 2 Integration for Go2
 
 QUADRUPED_HUST is a robotics project focused on integrating Reinforcement Learning (RL) with ROS 2 for the Unitree Go2 Quadruped robot. The project leverages the Genesis simulator for training via PPO and bridges the policy to ROS 2 for SLAM, navigation, and real-time control.
 
@@ -45,7 +45,6 @@ Install the required Reinforcement Learning libraries and the specific Numpy ver
 pip install tensorboard rsl-rl-lib==2.2.4
 pip install numpy==1.26.4
 
-
 3. Install Genesis Simulator
 
 Follow the official instructions to install Genesis v0.3.5:
@@ -69,7 +68,6 @@ rosdep install --from-paths src --ignore-src -r -y
 # 4. Build the workspace
 colcon build --symlink-install
 
-
 🎮 Usage Guide
 
 1. Training Mode (Reinforcement Learning)
@@ -82,7 +80,6 @@ cd ~/ros2_ws/src/quadruped_hust/scripts/
 # Run the training script
 python3 go2_train.py
 
-
 Note: You can adjust the environment and training hyperparameters in the train and env configuration files.
 
 2. Manual Control (Joystick)
@@ -93,7 +90,6 @@ source install/setup.bash
 
 # Launch simulation and control node
 ros2 launch quadruped_bringup go2_sim.launch.py
-
 
 Ensure your joystick is connected.
 
@@ -107,17 +103,14 @@ Step 1: Launch the simulation and robot bringup.
 
 ros2 launch quadruped_bringup go2_sim.launch.py
 
-
 Step 2: Launch SLAM Toolbox.
 
 ros2 launch quadruped_bringup go2_slam.launch.py
-
 
 Step 3: Save the map.
 Once you have scanned the desired area, run the following command to save the map:
 
 ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: '/home/your_username/ros2_ws/maps/my_map_name'}}"
-
 
 (Replace /home/your_username/... with your actual path)
 
@@ -130,18 +123,6 @@ ros2 launch quadruped_bringup go2_sim.launch.py
 
 # Terminal 2: Navigation
 ros2 launch quadruped_bringup go2_nav2.launch.py map:='/path/to/your/map.yaml'
-
-
-📂 Project Structure
-
-quadruped_hust/
-├── config/             # Configuration files (Joystick, RL params, Nav2)
-├── launch/             # ROS 2 Launch files
-├── maps/               # Saved maps (.pgm and .yaml)
-├── scripts/            # Python scripts for Training (go2_train.py)
-├── src/                # Source code for robot control
-└── README.md
-
 
 🙌 Acknowledgements
 
