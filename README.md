@@ -1,6 +1,6 @@
 Markdown
 
-# 🐕 QUADRUPED_HUST: RL & ROS 2 Integration for Go2
+# QUADRUPED_HUST: RL & ROS 2 Integration for Go2
 
 [![Ubuntu](https://img.shields.io/badge/OS-Ubuntu_22.04-orange.svg)](https://releases.ubuntu.com/22.04/)
 [![ROS2](https://img.shields.io/badge/ROS2-Humble-green.svg)](https://docs.ros.org/en/humble/index.html)
@@ -35,7 +35,7 @@ Markdown
 ### 1. Install ROS 2 Dependencies
 Ensure you have ROS 2 Humble installed. Then, install the necessary navigation, control, and utility packages:
 
-```bash
+
 sudo apt update
 sudo apt install ros-humble-desktop
 sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup 
@@ -43,7 +43,7 @@ sudo apt install ros-humble-slam-toolbox
 sudo apt install ros-humble-joy ros-humble-teleop-twist-joy
 sudo apt install ros-humble-xacro
 
-2. Install Python Dependencies
+### 2. Install Python Dependencies
 
 Install the required Reinforcement Learning libraries and specific Numpy version:
 Bash
@@ -51,13 +51,13 @@ Bash
 pip install tensorboard rsl-rl-lib==2.2.4
 pip install numpy==1.26.4
 
-3. Install Genesis Simulator
+### 3. Install Genesis Simulator
 
 Follow the official instructions to install Genesis v0.3.5:
 
     Genesis Installation Guide
 
-4. Setup Workspace
+### 4. Setup Workspace
 
 Clone this repository and build the workspace:
 Bash
@@ -75,18 +75,17 @@ rosdep install --from-paths src --ignore-src -r -y
 # 4. Build the workspace
 colcon build --symlink-install
 
-🎮 Usage Guide
-1. Training Mode (Reinforcement Learning)
+## 🎮 Usage Guide
+### 1. Training Mode (Reinforcement Learning)
 
 To train the robot using the PPO algorithm:
-Bash
 
 # Run the training script
 python3 src/quadruped_hust/scripts/go2_train.py
 
     Note: You can adjust the environment and training hyperparameters in the train and env configuration files.
 
-2. Manual Control (Joystick)
+### 2. Manual Control (Joystick)
 
 To control the robot using a gamepad/joystick:
 Bash
@@ -100,7 +99,7 @@ ros2 launch quadruped_bringup go2_sim.launch.py
 
     Configuration: Modify parameters in config/joystick.yaml.
 
-3. SLAM (Mapping)
+### 3. SLAM (Mapping)
 
 To generate a map of the environment:
 
@@ -119,7 +118,7 @@ Bash
 
 ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: '/home/your_user/ros2_ws/maps/my_map_name'}}"
 
-4. Navigation (Nav2)
+### 4. Navigation (Nav2)
 
 To perform autonomous navigation on a saved map:
 Bash
@@ -133,3 +132,4 @@ ros2 launch quadruped_bringup go2_nav2.launch.py map:='/path/to/your/map.yaml'
 🙌 Acknowledgements
 
 This project is built upon the foundation of genesis_ros. Special thanks to the authors for their contributions.
+
