@@ -1,4 +1,4 @@
-# QUADRUPED_HUST 🤖
+# QUADRUPED_HUST 
 
 **QUADRUPED_HUST** is a robotics project focused on applying **Reinforcement Learning (RL)** to train the **Unitree Go2** Quadruped robot. It enables the robot to learn locomotion based on velocity commands while maintaining seamless communication with the **ROS2** ecosystem.
 
@@ -90,14 +90,11 @@ To start training the robot using Reinforcement Learning:
 python3 go2_train.py
 ```
 
-    Note: You can adjust environment and training hyperparameters directly in the train and env configuration files.
+Note: You can adjust environment and training hyperparameters directly in the train and env configuration files.
 
 ### 2. Control Mode (Joystick) 🎮
 
-To control the robot manually using a joystick:
-
-    Source the workspace:
-    
+To control the robot manually using a joystick:    
 ```
 . install/setup.bash
 ```
@@ -106,26 +103,19 @@ Launch the simulation bridge:
 ```
     ros2 launch quadruped_bringup go2_sim.launch.py
 ```
-
-        Ensure your joystick is connected.
-
-        Joystick parameters can be modified in joystick.yaml.
+Ensure your joystick is connected.
+Joystick parameters can be modified in joystick.yaml.
 
 ### 3. SLAM Mode (Mapping) 🗺️
 
 To run Simultaneous Localization and Mapping:
-
-    Launch Simulation:
 ```
 ros2 launch quadruped_bringup go2_sim.launch.py
 ```
-
 Launch SLAM Toolbox:
 ```
 ros2 launch quadruped_bringup go2_slam.launch.py
 ```
-
-
 Save the Map: Once you have scanned the area, save the map using the service call:
 ```
     ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'my_map_name'}}"
@@ -134,8 +124,6 @@ Save the Map: Once you have scanned the area, save the map using the service cal
 ### 4. Navigation Mode 📍
 
 To perform autonomous navigation on a saved map:
-
-    Launch Simulation:
 ```
 ros2 launch quadruped_bringup go2_sim.launch.py
 ```
@@ -150,3 +138,4 @@ Launch Nav2: Replace 'Path/to/your/map.yaml' with the actual absolute path to yo
 This project is built upon and inspired by the following repository:
 
     vybhav-ibr/genesis_ros
+
