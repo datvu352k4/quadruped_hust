@@ -6,7 +6,7 @@
 
 ## 🌟 Key Features
 
-* **Reinforcement Learning:** Trains the robot using **PPO** (Proximal Policy Optimization) within a custom environment.
+* **Reinforcement Learning:** Trains the robot using **PPO** within a custom environment.
 * **ROS2 Integration:** Full communication bridge with ROS2 for sensor data and command handling.
 * **Teleoperation:** Real-time robot control using a Joystick.
 * **SLAM (Mapping):** Map construction capabilities using `slam-toolbox`.
@@ -18,7 +18,7 @@
 
 Ensure your system meets the following compatibility requirements:
 
-* **OS:** Ubuntu 22.04 (Jammy Jellyfish)
+* **OS:** Ubuntu 22.04
 * **ROS Version:** ROS2 Humble
 * **Simulator:** Genesis v0.3.5
 * **Python:** 3.10+
@@ -41,7 +41,7 @@ pip install numpy==1.26.4
 
 Install Genesis v0.3.5 following the official instructions from their repository:
 
-    🔗 Genesis-Embodied-AI/Genesis Repository
+https://github.com/Genesis-Embodied-AI/Genesis?tab=readme-ov-file 
 
 ### 3. Install ROS2 Packages (Required)
 
@@ -66,13 +66,10 @@ Clone this repository into your ROS2 workspace (e.g., ~/ros2_ws) and build the p
 ```
 cd ~/ros2_ws/src
 ```
-
-# Clone the repository (Replace with actual git URL if available)
-# git clone <your-repo-url> .
+# Clone the repository 
 
 # Install dependencies using rosdep
 ```
-
 cd ~/ros2_ws
 rosdep install --from-paths src --ignore-src -r -y
 ```
@@ -138,4 +135,5 @@ Launch Nav2: Replace 'Path/to/your/map.yaml' with the actual absolute path to yo
 This project is built upon and inspired by the following repository:
 
     vybhav-ibr/genesis_ros
+
 
