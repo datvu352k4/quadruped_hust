@@ -93,12 +93,12 @@ Note: You can adjust environment and training hyperparameters directly in the tr
 
 To control the robot manually using a joystick:    
 ```
-. install/setup.bash
+install/setup.bash
 ```
 
 Launch the simulation bridge:
 ```
-    ros2 launch quadruped_bringup go2_sim.launch.py
+ros2 launch quadruped_bringup go2_sim.launch.py
 ```
 Ensure your joystick is connected.
 Joystick parameters can be modified in joystick.yaml.
@@ -115,10 +115,10 @@ ros2 launch quadruped_bringup go2_slam.launch.py
 ```
 Save the Map: Once you have scanned the area, save the map using the service call:
 ```
-    ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'my_map_name'}}"
+ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'my_map_name'}}"
 ```
 
-### 4. Navigation Mode 📍
+### 4. Navigation Mode
 
 To perform autonomous navigation on a saved map:
 ```
@@ -127,13 +127,13 @@ ros2 launch quadruped_bringup go2_sim.launch.py
 
 Launch Nav2: Replace 'Path/to/your/map.yaml' with the actual absolute path to your saved map file.
 ```
-    ros2 launch quadruped_bringup go2_nav2.launch.py map:='/home/user/map_name.yaml'
+ros2 launch quadruped_bringup go2_nav2.launch.py map:='/home/user/map_name.yaml'
 ```
 
-🔗 Acknowledgments
+### Acknowledgments
 
 This project is built upon and inspired by the following repository:
 
-    vybhav-ibr/genesis_ros
+https://github.com/vybhav-ibr/genesis_ros
 
 
