@@ -67,7 +67,7 @@ cd ~/ros2_ws/src
 ```
 #### Clone the repository
 ```
-git clone https://github.com/datvu352k4/quadruped_hust/
+git clone https://github.com/datvu352k4/quadruped_hust.git
 ```
 
 #### Install dependencies using rosdep
@@ -137,6 +137,7 @@ ros2 launch quadruped_bringup go2_nav2.launch.py map:='/home/user/map_name.yaml'
 This project is built upon and inspired by the following repository:
 
 https://github.com/vybhav-ibr/genesis_ros
+
 
 
 
