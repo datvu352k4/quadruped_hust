@@ -1,129 +1,152 @@
-🐕 QUADRUPED_HUST: RL & ROS 2 Integration for Go2
+# QUADRUPED_HUST 🤖
 
-QUADRUPED_HUST is a robotics project focused on integrating Reinforcement Learning (RL) with ROS 2 for the Unitree Go2 Quadruped robot. The project leverages the Genesis simulator for training via PPO and bridges the policy to ROS 2 for SLAM, navigation, and real-time control.
+**QUADRUPED_HUST** is a robotics project focused on applying **Reinforcement Learning (RL)** to train the **Unitree Go2** Quadruped robot. It enables the robot to learn locomotion based on velocity commands while maintaining seamless communication with the **ROS2** ecosystem.
 
-🚀 Key Features
+---
 
-Reinforcement Learning: Trains the robot using PPO (Proximal Policy Optimization) with custom environments.
+## 🌟 Key Features
 
-ROS 2 Bridge: Seamless communication between the RL agent and the ROS 2 ecosystem.
+* **Reinforcement Learning:** Trains the robot using **PPO** (Proximal Policy Optimization) within a custom environment.
+* **ROS2 Integration:** Full communication bridge with ROS2 for sensor data and command handling.
+* **Teleoperation:** Real-time robot control using a Joystick.
+* **SLAM (Mapping):** Map construction capabilities using `slam-toolbox`.
+* **Navigation:** Autonomous path planning and trajectory execution using `Nav2`.
 
-Joystick Control: Real-time manual control support using standard gamepads.
+---
 
-SLAM: Environment mapping and localization using slam_toolbox.
+## ⚙️ System Requirements
 
-Autonomous Navigation: Path planning and trajectory execution using Nav2.
+Ensure your system meets the following compatibility requirements:
 
-🛠️ System Requirements
+* **OS:** Ubuntu 22.04 (Jammy Jellyfish)
+* **ROS Version:** ROS2 Humble
+* **Simulator:** Genesis v0.3.5
+* **Python:** 3.10+
 
-Operating System: Ubuntu 22.04 LTS (Jammy Jellyfish)
+---
 
-ROS Distribution: ROS 2 Humble Hawksbill
+## 🛠️ Installation
 
-Simulator: Genesis v0.3.5
+Follow these steps to set up the development environment.
 
-Python: 3.10+
+### 1. Install Python Dependencies
+Install the required Reinforcement Learning libraries and the specific NumPy version needed for compatibility.
 
-📦 Installation
-
-1. Install ROS 2 Dependencies
-
-Ensure you have ROS 2 Humble installed. Then, install the necessary navigation, control, and utility packages:
-
-sudo apt update
-sudo apt install ros-humble-desktop
-sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup 
-sudo apt install ros-humble-slam-toolbox
-sudo apt install ros-humble-joy ros-humble-teleop-twist-joy
-sudo apt install ros-humble-xacro
-
-
-2. Install Python Dependencies
-
-Install the required Reinforcement Learning libraries and the specific Numpy version required by Genesis:
-
+```
 pip install tensorboard rsl-rl-lib==2.2.4
 pip install numpy==1.26.4
+```
 
-3. Install Genesis Simulator
+### 2. Install Genesis Simulator
 
-Follow the official instructions to install Genesis v0.3.5:
+Install Genesis v0.3.5 following the official instructions from their repository:
 
-Genesis Installation Guide
+    🔗 Genesis-Embodied-AI/Genesis Repository
 
-4. Setup Workspace
+### 3. Install ROS2 Packages (Required)
 
-Clone this repository into your ROS 2 workspace (e.g., ros2_ws) and build it.
+Install the necessary ROS2 packages for Navigation, SLAM, and Joystick control.
+Bash
+```
 
-# 1. Create directory (if not exists) and enter src
-mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
+sudo apt update
+sudo apt install ros-humble-navigation2 \
+ros-humble-nav2-bringup \
+ros-humble-slam-toolbox \
+ros-humble-teleop-twist-joy \
+ros-humble-joy \
+ros-humble-xacro
+```
 
-# 2. Clone this repository
-git clone [https://github.com/datvu352k4/quadruped_hust.git](https://github.com/datvu352k4/quadruped_hust.git)
+### 4. Setup Workspace & Build
 
-# 3. Install dependencies using rosdep
+Clone this repository into your ROS2 workspace (e.g., ~/ros2_ws) and build the project.
+
+# Navigate to your workspace src folder
+```
+cd ~/ros2_ws/src
+```
+
+# Clone the repository (Replace with actual git URL if available)
+# git clone <your-repo-url> .
+
+# Install dependencies using rosdep
+```
+
 cd ~/ros2_ws
 rosdep install --from-paths src --ignore-src -r -y
+```
 
-# 4. Build the workspace
-colcon build --symlink-install
+# Build the workspace
+```
+colcon build
+```
 
-🎮 Usage Guide
+## 🚀 Usage
+### 1. Training Mode 
 
-1. Training Mode (Reinforcement Learning)
-
-To train the robot using the PPO algorithm:
-
-# Navigate to the training script directory (example path)
-cd ~/ros2_ws/src/quadruped_hust/scripts/
-
-# Run the training script
+To start training the robot using Reinforcement Learning:
+```
 python3 go2_train.py
+```
 
-Note: You can adjust the environment and training hyperparameters in the train and env configuration files.
+    Note: You can adjust environment and training hyperparameters directly in the train and env configuration files.
 
-2. Manual Control (Joystick)
+### 2. Control Mode (Joystick) 🎮
 
-To control the robot using a gamepad/joystick:
+To control the robot manually using a joystick:
 
-source install/setup.bash
+    Source the workspace:
+    
+```
+. install/setup.bash
+```
 
-# Launch simulation and control node
+Launch the simulation bridge:
+```
+    ros2 launch quadruped_bringup go2_sim.launch.py
+```
+
+        Ensure your joystick is connected.
+
+        Joystick parameters can be modified in joystick.yaml.
+
+### 3. SLAM Mode (Mapping) 🗺️
+
+To run Simultaneous Localization and Mapping:
+
+    Launch Simulation:
+```
 ros2 launch quadruped_bringup go2_sim.launch.py
+```
 
-Ensure your joystick is connected.
-
-Configuration: You can modify button mappings in config/joystick.yaml.
-
-3. SLAM (Mapping)
-
-To generate a map of the environment:
-
-Step 1: Launch the simulation and robot bringup.
-
-ros2 launch quadruped_bringup go2_sim.launch.py
-
-Step 2: Launch SLAM Toolbox.
-
+Launch SLAM Toolbox:
+```
 ros2 launch quadruped_bringup go2_slam.launch.py
+```
 
-Step 3: Save the map.
-Once you have scanned the desired area, run the following command to save the map:
 
-ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: '/home/your_username/ros2_ws/maps/my_map_name'}}"
+Save the Map: Once you have scanned the area, save the map using the service call:
+```
+    ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap "{name: {data: 'my_map_name'}}"
+```
 
-(Replace /home/your_username/... with your actual path)
+### 4. Navigation Mode 📍
 
-4. Navigation (Nav2)
+To perform autonomous navigation on a saved map:
 
-To perform autonomous navigation on a previously saved map:
-
-# Terminal 1: Simulation
+    Launch Simulation:
+```
 ros2 launch quadruped_bringup go2_sim.launch.py
+```
 
-# Terminal 2: Navigation
-ros2 launch quadruped_bringup go2_nav2.launch.py map:='/path/to/your/map.yaml'
+Launch Nav2: Replace 'Path/to/your/map.yaml' with the actual absolute path to your saved map file.
+```
+    ros2 launch quadruped_bringup go2_nav2.launch.py map:='/home/user/map_name.yaml'
+```
 
-🙌 Acknowledgements
+🔗 Acknowledgments
 
-This project is built upon the foundation of genesis_ros. Special thanks to the original authors for their contributions to the open-source community.
+This project is built upon and inspired by the following repository:
+
+    vybhav-ibr/genesis_ros
